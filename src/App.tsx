@@ -1,21 +1,10 @@
-import { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import styled from "styled-components";
-
-interface ButtonProps {
-  backgroundColor?: string
-}
-
-const StyledButton = styled.button<ButtonProps>`
-  background-color: ${props => props.theme.colors.main};
-  border-radius: ${props => props.theme.borderRadius};
-  border: ${props => props.theme.borderRadius} solid ${props => props.theme.colors.main};
-  color: ${props => props.theme.colors.secondary};
-`;
+import useLocalStorage from './hooks/useLocalStorage';
+import Button from './components/Button/Button'
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useLocalStorage('count', 0)
 
   return (
     <div className="App">
@@ -23,13 +12,9 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!</p>
         <p>
-          <StyledButton
-            as="button"
-            onClick={() => setCount((count) => count + 1)}
-          >
-            count is: {count}
-          </StyledButton>
+          <Button count={count} setCount={setCount} />
         </p>
+        <p>count is: {count}</p>
         <p>
           Edit <code>App.tsx</code> and save to test HMR updates.
         </p>
